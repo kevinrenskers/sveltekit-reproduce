@@ -9,11 +9,12 @@
 
     if (!storedContent) {
       console.log("FETCHING CONTENT!");
-      const res = await fetch("/index.json");
+
+      // In the real app it would fetch content from a remote server
 
       return {
         props: {
-          fetchedContent: await res.text()
+          fetchedContent: new Date().toISOString()
         }
       };
     }

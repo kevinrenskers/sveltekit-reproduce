@@ -2,7 +2,7 @@
   import { content } from "$lib/store";
 
   function changeContent() {
-    $content = new Date().toISOString();
+    $content = "CHANGED CONTENT";
   }
 </script>
 
