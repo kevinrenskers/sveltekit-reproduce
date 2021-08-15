@@ -1,16 +1,25 @@
 <script>
-  import { content } from "$lib/store";
+  import { content, user } from "$lib/store";
+  import { session } from "$app/stores";
+  import { goto } from "$app/navigation";
 
-  function changeContent() {
-    $content = "CHANGED CONTENT";
+  function setCookie(name, value) {
+    document.cookie = name + "=" + value + "; max-age=31536000; path=/";
+  }
+
+  function login() {
+    setCookie("jwt", "abc");
+    $session.jwt = "abc";
+    goto("/protected");
   }
 </script>
 
 <h1>Welcome to SvelteKit</h1>
-<p>{$content}</p>
 
-<button on:click={changeContent}>Change content</button>
-
-<p>
-  <a href="/subpage">subpage</a>
-</p>
+{#if $user}
+  <p>
+    <a href="/protected">protected</a>
+  </p>
+{:else}
+  <button on:click={login}>Log in</button>
+{/if}

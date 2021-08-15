@@ -1,34 +1,45 @@
 <script context="module">
   import { get } from "svelte/store";
-  import { content } from "$lib/store";
+  import { user } from "$lib/store";
 
-  export async function load({ fetch }) {
-    console.log("RUNNING LOAD");
+  export async function load({ fetch, session }) {
+    console.log("load", session);
 
-    const storedContent = get(content);
-
-    if (!storedContent) {
-      console.log("FETCHING CONTENT!");
-
-      // In the real app it would fetch content from a remote server
-
+    if (!session.jwt) {
       return {
         props: {
-          fetchedContent: new Date().toISOString()
+          fetchedUser: false
         }
       };
     }
 
-    return {};
+    const storedUser = get(user);
+    if (storedUser) {
+      return {
+        props: {
+          fetchedUser: storedUser
+        }
+      };
+    }
+
+    const res = await fetch("/user.json");
+
+    return {
+      props: {
+        fetchedUser: await res.text()
+      }
+    };
   }
 </script>
 
 <script>
-  export let fetchedContent;
+  import Navbar from "$lib/Navbar.svelte";
 
-  if (fetchedContent) {
-    $content = fetchedContent;
+  export let fetchedUser;
+  if (fetchedUser) {
+    user.set(fetchedUser);
   }
 </script>
 
+<Navbar />
 <slot />
