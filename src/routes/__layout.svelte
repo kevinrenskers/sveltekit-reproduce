@@ -1,45 +1,33 @@
 <script context="module">
-  import { get } from "svelte/store";
-  import { user } from "$lib/store";
-
-  export async function load({ fetch, session }) {
-    console.log("load", session);
-
-    if (!session.jwt) {
-      return {
-        props: {
-          fetchedUser: false
-        }
-      };
-    }
-
-    const storedUser = get(user);
-    if (storedUser) {
-      return {
-        props: {
-          fetchedUser: storedUser
-        }
-      };
-    }
-
-    const res = await fetch("/user.json");
-
+  export async function load({ fetch }) {
+    const resp = await fetch('/data.json')
+    const data = await resp.json()
     return {
       props: {
-        fetchedUser: await res.text()
+        data
       }
-    };
+    }
   }
 </script>
 
 <script>
-  import Navbar from "$lib/Navbar.svelte";
+  import { items } from '$lib/store'
+  import NavBar from '$lib/NavBar.svelte'
+  export let data = []
 
-  export let fetchedUser;
-  if (fetchedUser) {
-    user.set(fetchedUser);
-  }
+  $items = data
 </script>
 
-<Navbar />
-<slot />
+<style>
+  div {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin: 16px 0;
+    padding: 8px;
+  }
+</style>
+
+<NavBar />
+
+<p>You must be signed in to view items</p>
+<div><slot /></div>

@@ -1,25 +1,13 @@
 <script>
-  import { content, user } from "$lib/store";
-  import { session } from "$app/stores";
-  import { goto } from "$app/navigation";
-
-  function setCookie(name, value) {
-    document.cookie = name + "=" + value + "; max-age=31536000; path=/";
-  }
-
-  function login() {
-    setCookie("jwt", "abc");
-    $session.jwt = "abc";
-    goto("/protected");
-  }
+  import { items } from "$lib/store";
 </script>
 
-<h1>Welcome to SvelteKit</h1>
-
-{#if $user}
-  <p>
-    <a href="/protected">protected</a>
-  </p>
-{:else}
-  <button on:click={login}>Log in</button>
-{/if}
+<h1>Items:</h1>
+<ul>
+  {#each $items as item}
+    <li>
+      <a href="/{item.id}">{item.title}</a>
+      : {item.content}
+    </li>
+  {/each}
+</ul>

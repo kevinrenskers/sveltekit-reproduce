@@ -1,9 +1,31 @@
 <script>
-  import { user } from "./store";
+  import { session } from '$app/stores'
+
+  async function signIn() {
+    const resp = await fetch('/auth.json', { method: 'post' })
+    const data = await resp.json()
+
+    $session = data
+  }
+
+  async function signOut() {
+    await fetch('/auth.json', { method: 'delete' })
+    $session = null
+  }
 </script>
 
-<header>
-  {#if $user}Logged in as {$user}!{:else}Not logged in{/if}
-</header>
+<style>
+  button {
+    margin-right: 8px;
+  }
+</style>
 
-<hr />
+<header>
+{#if $session}
+  <button on:click={signOut}>Sign Out</button>
+  Signed in as {$session.name} ({$session.uid})
+{:else}
+  <button on:click={signIn}>Sign In</button>
+  Anonymous visitor
+{/if}
+</header>
