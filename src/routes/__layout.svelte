@@ -19,11 +19,13 @@
 </script>
 
 <script>
+  import { tick } from "svelte";
   import { user } from "$lib/store";
   import Navbar from "$lib/Navbar.svelte";
 
   export let fetchedUser;
   user.set(fetchedUser);
+  tick();
 </script>
 
 <Navbar />
