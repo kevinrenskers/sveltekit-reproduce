@@ -13,7 +13,6 @@
 </script>
 
 <script>
-  import { tick } from "svelte";
   import { user as userStore } from "$lib/store";
   import { session } from "$app/stores";
   import { goto } from "$app/navigation";
@@ -28,7 +27,7 @@
   function login() {
     setCookie("jwt", "abc");
     $session.jwt = "abc";
-    tick().then(() => goto("/protected"));
+    goto("/protected");
   }
 </script>
 
