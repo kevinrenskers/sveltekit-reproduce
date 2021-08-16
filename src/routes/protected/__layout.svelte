@@ -1,23 +1,9 @@
 <script context="module">
-  import { get } from "svelte/store";
-  import { content } from "$lib/store";
-  import Navbar from "$lib/Navbar.svelte";
-
   export async function load({ fetch, session }) {
     if (!session.jwt) {
       return {
         status: 302,
         redirect: "/"
-      };
-    }
-
-    const storedContent = get(content);
-
-    if (storedContent) {
-      return {
-        props: {
-          fetchedContent: storedContent
-        }
       };
     }
 
@@ -32,11 +18,11 @@
 </script>
 
 <script>
-  export let fetchedContent;
+  import { content } from "$lib/store";
+  import Navbar from "$lib/Navbar.svelte";
 
-  if (fetchedContent) {
-    $content = fetchedContent;
-  }
+  export let fetchedContent;
+  $content = fetchedContent;
 </script>
 
 <slot />
