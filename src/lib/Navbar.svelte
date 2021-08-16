@@ -1,9 +1,9 @@
 <script>
-  import { user } from "./store";
+  export let user;
 </script>
 
 <header>
-  {#if $user}Logged in as {$user}!{:else}Not logged in{/if}
+  {#if user}Logged in as {user}!{:else}Not logged in{/if}
 </header>
 
 <hr />
