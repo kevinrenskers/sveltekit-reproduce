@@ -23,20 +23,16 @@
     }
 
     const res = await fetch("/protected.json");
+    const fetchedContent = await res.text();
 
-    if (browser) {
-      return {
-        props: {
-          fetchedContent: await res.text()
-        }
-      };
-    } else {
-      return {
-        context: {
-          fetchedContent: await res.text()
-        }
-      };
-    }
+    return {
+      props: {
+        fetchedContent: fetchedContent
+      },
+      context: {
+        fetchedContent: fetchedContent
+      }
+    };
   }
 </script>
 

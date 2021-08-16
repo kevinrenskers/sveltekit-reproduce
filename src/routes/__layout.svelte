@@ -22,24 +22,16 @@
     }
 
     const res = await fetch("/user.json");
+    const fetchedUser = await res.text();
 
-    if (browser) {
-      return {
-        props: {
-          fetchedUser: await res.text()
-        }
-      };
-    } else {
-      const fetchedUser = await res.text();
-      return {
-        props: {
-          fetchedUser: fetchedUser
-        },
-        context: {
-          fetchedUser: fetchedUser
-        }
-      };
-    }
+    return {
+      props: {
+        fetchedUser: fetchedUser
+      },
+      context: {
+        fetchedUser: fetchedUser
+      }
+    };
   }
 </script>
 
