@@ -1,6 +1,6 @@
 <script context="module">
   export async function load({ context }) {
-    if (context.fetchedUser) {
+    if (context) {
       return {
         props: {
           fetchedUser: context.fetchedUser

@@ -4,8 +4,6 @@
   import { user } from "$lib/store";
 
   export async function load({ fetch, session }) {
-    console.log("load", session);
-
     if (!session.jwt) {
       return {
         props: {
