@@ -6,18 +6,14 @@
   export async function load({ fetch, session }) {
     if (!session.jwt) {
       return {
-        props: {
-          fetchedUser: false
-        }
+        props: { fetchedUser: false },
       };
     }
 
     const storedUser = get(user);
     if (browser && storedUser) {
       return {
-        props: {
-          fetchedUser: storedUser
-        }
+        props: { fetchedUser: storedUser },
       };
     }
 
@@ -25,12 +21,8 @@
     const fetchedUser = await res.text();
 
     return {
-      props: {
-        fetchedUser: fetchedUser
-      },
-      context: {
-        fetchedUser: fetchedUser
-      }
+      props: { fetchedUser },
+      context: { fetchedUser },
     };
   }
 </script>
@@ -39,7 +31,7 @@
   import Navbar from "$lib/Navbar.svelte";
 
   export let fetchedUser;
-  if (browser && fetchedUser) {
+  if (browser) {
     user.set(fetchedUser);
   }
 </script>

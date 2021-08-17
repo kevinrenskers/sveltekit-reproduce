@@ -1,11 +1,6 @@
 <script context="module">
   export async function load({ context }) {
-    return {
-      props: {
-        fetchedContent: context.fetchedContent,
-        fetchedUser: context.fetchedUser
-      }
-    };
+    return { props: context };
   }
 </script>
 

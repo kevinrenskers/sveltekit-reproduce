@@ -1,11 +1,7 @@
 <script context="module">
+  // Forward all context to the props
   export async function load({ context }) {
-    return {
-      props: {
-        fetchedContent: context.fetchedContent,
-        fetchedUser: context.fetchedUser
-      }
-    };
+    return { props: context };
   }
 </script>
 
@@ -13,6 +9,9 @@
   import { user as userStore, content as contentStore } from "$lib/store";
   export let fetchedContent;
   export let fetchedUser;
+
+  // The magic sauce: use the content in the store, but fallback to the context,
+  // which is needed for SSR.
   $: content = $contentStore || fetchedContent;
   $: user = $userStore || fetchedUser;
 </script>
