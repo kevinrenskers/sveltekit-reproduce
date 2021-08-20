@@ -23,5 +23,6 @@
 <p>{content}</p>
 
 <p>
+  <a href="/">home</a>
   <a href="/protected/subpage">subpage</a>
 </p>

@@ -17,7 +17,7 @@
     const storedContent = get(content);
     if (browser && storedContent) {
       return {
-        props: { fetchedContent: storedContent },
+        props: { fetchedContent: storedContent }
       };
     }
 
@@ -27,7 +27,7 @@
 
     return {
       props: { fetchedContent },
-      context: { fetchedContent },
+      context: { fetchedContent }
     };
   }
 </script>
