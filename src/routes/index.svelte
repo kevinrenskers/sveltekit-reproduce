@@ -1,7 +1,20 @@
+<script context="module">
+  export async function load({ context }) {
+    return {
+      props: {
+        fetchedUser: context.fetchedUser
+      }
+    };
+  }
+</script>
+
 <script>
-  import { content, user } from "$lib/store";
+  import { user as userStore } from "$lib/store";
   import { session } from "$app/stores";
   import { goto } from "$app/navigation";
+
+  export let fetchedUser;
+  $: user = $userStore || fetchedUser;
 
   function setCookie(name, value) {
     document.cookie = name + "=" + value + "; max-age=31536000; path=/";
@@ -16,7 +29,7 @@
 
 <h1>Welcome to SvelteKit</h1>
 
-{#if $user}
+{#if user}
   <p>
     <a href="/protected">protected</a>
   </p>
